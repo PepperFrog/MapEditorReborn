@@ -5,6 +5,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Exiled.API.Enums;
+using Interactables.Interobjects.DoorUtils;
+
 namespace MapEditorReborn.API.Features.Objects
 {
     using System;
@@ -32,7 +35,7 @@ namespace MapEditorReborn.API.Features.Objects
             Locker.Loot = Array.Empty<LockerLoot>();
 
             if (first)
-                Base.KeycardPermissions = Locker.Chambers[0].RequiredPermissions;
+                Base.KeycardPermissions = (KeycardPermissions) Locker.Chambers[0].RequiredPermissions;
 
             HandleItems();
             NetworkServer.Spawn(gameObject);
@@ -55,7 +58,7 @@ namespace MapEditorReborn.API.Features.Objects
         private void HandleItems()
         {
             foreach (LockerChamber lockerChamber in Locker.Chambers)
-                lockerChamber.RequiredPermissions = Base.KeycardPermissions;
+                lockerChamber.RequiredPermissions = (DoorPermissionFlags) Base.KeycardPermissions;
 
             Dictionary<int, List<LockerItemSerializable>> chambersCopy = null;
             if (Base.ShuffleChambers)

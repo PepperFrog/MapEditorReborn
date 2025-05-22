@@ -5,6 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Exiled.API.Enums;
+
 namespace MapEditorReborn.API.Features.Serializable
 {
     using System;

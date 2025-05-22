@@ -19,12 +19,19 @@
         public override DoorObject Init(DoorSerializable doorSerializable)
         {
             _breakableDoor = Door as BreakableDoor;
-            _vanillaBase = new(Door.IsOpen, Door.RequiredPermissions.RequiredPermissions, _breakableDoor?.IgnoredDamage ?? DoorDamageType.Weapon, _breakableDoor?.MaxHealth ?? 0f);
+            int num = Door.IsOpen ? 1 : 0;
+            int keycardPermissions = (int) Door.KeycardPermissions;
+            BreakableDoor breakableDoor1 = _breakableDoor;
+            // ISSUE: explicit non-virtual call
+            int ignoredDamageSources = breakableDoor1 != null ? (int) (breakableDoor1.IgnoredDamage) : 8;
+            BreakableDoor breakableDoor2 = _breakableDoor;
+            // ISSUE: explicit non-virtual call
+            double doorHealth = breakableDoor2 != null ? (double) (breakableDoor2.MaxHealth) : 0.0;
+            _vanillaBase = new VanillaDoorSerializable(num != 0, (KeycardPermissions) keycardPermissions, (DoorDamageType) ignoredDamageSources, (float) doorHealth);
             Base = doorSerializable;
-
             Door.IsOpen = doorSerializable.IsOpen;
             Door.ChangeLock(doorSerializable.IsLocked ? DoorLockType.SpecialDoorFeature : DoorLockType.None);
-            Door.RequiredPermissions.RequiredPermissions = doorSerializable.KeycardPermissions;
+            Door.KeycardPermissions = doorSerializable.KeycardPermissions;
             if (_breakableDoor != null)
             {
                 _breakableDoor.IgnoredDamage = doorSerializable.IgnoredDamageSources;
@@ -32,7 +39,6 @@
                 _breakableDoor.Health = doorSerializable.DoorHealth;
                 _remainingHealth = doorSerializable.DoorHealth;
             }
-
             return this;
         }
 
@@ -51,7 +57,7 @@
         {
             Door.IsOpen = _vanillaBase.IsOpen;
             Door.ChangeLock(DoorLockType.None);
-            Door.RequiredPermissions.RequiredPermissions = _vanillaBase.KeycardPermissions;
+            Door.KeycardPermissions = _vanillaBase.KeycardPermissions;
             if (_breakableDoor != null)
             {
                 _breakableDoor.IgnoredDamage = _vanillaBase.IgnoredDamageSources;

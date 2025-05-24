@@ -4,7 +4,7 @@
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
-/*
+
 namespace MapEditorReborn.Patches
 {
 #pragma warning disable SA1313 // Parameter names should begin with lower-case letter
@@ -17,16 +17,14 @@ namespace MapEditorReborn.Patches
     {
         private static bool Prefix(AdminToyBase __instance)
         {
-            if (!__instance.gameObject.TryGetComponent<SpeakerToy>(out SpeakerToy _) || !__instance.gameObject.TryGetComponent<Speaker>(out Speaker _))
-            {
-                __instance.NetworkPosition = __instance.transform.position;
-                __instance.NetworkRotation = __instance.transform.rotation;
-                __instance.NetworkScale = __instance.transform.root != __instance.transform
-                    ? Vector3.Scale(__instance.transform.localScale, __instance.transform.root.localScale)
-                    : __instance.transform.localScale;
-            }
+            __instance.NetworkPosition = __instance.transform.position;
+            __instance.NetworkRotation = __instance.transform.rotation;
+            __instance.NetworkScale = __instance.transform.root != __instance.transform
+                ? Vector3.Scale(__instance.transform.localScale, __instance.transform.root.localScale)
+                : __instance.transform.localScale;
+
 
             return false;
         }
     }
-}*/
+}

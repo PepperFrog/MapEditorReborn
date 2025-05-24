@@ -19,7 +19,6 @@
         public override DoorObject Init(DoorSerializable doorSerializable)
         {
             _breakableDoor = Door as BreakableDoor;
-            int num = Door.IsOpen ? 1 : 0;
             int keycardPermissions = (int) Door.KeycardPermissions;
             BreakableDoor breakableDoor1 = _breakableDoor;
             // ISSUE: explicit non-virtual call
@@ -27,7 +26,7 @@
             BreakableDoor breakableDoor2 = _breakableDoor;
             // ISSUE: explicit non-virtual call
             double doorHealth = breakableDoor2 != null ? (double) (breakableDoor2.MaxHealth) : 0.0;
-            _vanillaBase = new VanillaDoorSerializable(num != 0, (KeycardPermissions) keycardPermissions, (DoorDamageType) ignoredDamageSources, (float) doorHealth);
+            _vanillaBase = new VanillaDoorSerializable(Door.IsOpen, (KeycardPermissions) keycardPermissions, (DoorDamageType) ignoredDamageSources, (float) doorHealth);
             Base = doorSerializable;
             Door.IsOpen = doorSerializable.IsOpen;
             Door.ChangeLock(doorSerializable.IsLocked ? DoorLockType.SpecialDoorFeature : DoorLockType.None);
@@ -48,9 +47,9 @@
 
         internal static void NameUnnamedDoors()
         {
-            DoorNametagExtension.NamedDoors.Remove("049_GATE");
-            DoorNametagExtension.NamedDoors.Add("049_GATE", null);
-            Door.Get(DoorType.Scp049Gate).Base.gameObject.AddComponent<DoorNametagExtension>()._nametag = "049_GATE";
+            //DoorNametagExtension.NamedDoors.Remove("049_GATE");
+            //DoorNametagExtension.NamedDoors.Add("049_GATE", null);
+            //Door.Get(DoorType.Scp049Gate).Base.gameObject.AddComponent<DoorNametagExtension>()._nametag = "049_GATE";
         }
 
         private void SetToDefault()

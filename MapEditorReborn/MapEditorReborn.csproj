@@ -10,6 +10,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="AudioPlayerApi">
       <HintPath>$(EXILED_REFERENCES)\AudioPlayerApi.dll</HintPath>
@@ -23,7 +27,6 @@
     <Reference Include="Assembly-CSharp-firstpass" HintPath="$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll" />
     <Reference Include="YamlDotNet" HintPath="$(EXILED_REFERENCES)\YamlDotNet.dll" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="ExMod.Exiled" Version="9.6.0" />
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />

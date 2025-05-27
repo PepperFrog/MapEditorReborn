@@ -14,6 +14,10 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="AudioPlayerApi">
       <HintPath>$(EXILED_REFERENCES)\AudioPlayerApi.dll</HintPath>

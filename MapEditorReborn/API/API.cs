@@ -5,6 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Interactables.Interobjects.DoorUtils;
+
 namespace MapEditorReborn.API
 {
     using System.Collections.Generic;
@@ -112,10 +114,10 @@ namespace MapEditorReborn.API
 		{
 			Dictionary<ObjectType, GameObject> objectList = new(21);
 			// DoorSpawnpoint[] doorList = Object.FindObjectsOfType<DoorSpawnpoint>();
-
-			objectList.Add(ObjectType.LczDoor, NetworkClient.prefabs.Values.First(x => x.name.Contains("LCZ")));
-			objectList.Add(ObjectType.HczDoor, NetworkClient.prefabs.Values.First(x => x.name.Contains("HCZ")));
-			objectList.Add(ObjectType.EzDoor, NetworkClient.prefabs.Values.First(x => x.name.Contains("EZ")));
+			
+			//objectList.Add(ObjectType.LczDoor, NetworkClient.prefabs.Values.First(x => x.name.Contains("LCZ")));
+			//objectList.Add(ObjectType.HczDoor, NetworkClient.prefabs.Values.First(x => x.name.Contains("HCZ")));
+			//objectList.Add(ObjectType.EzDoor, NetworkClient.prefabs.Values.First(x => x.name.Contains("EZ")));
 
 			objectList.Add(ObjectType.WorkStation, NetworkClient.prefabs.Values.First(x => x.name.Contains("Work Station")));
 
@@ -126,6 +128,23 @@ namespace MapEditorReborn.API
 
 			foreach (GameObject gameObject in NetworkClient.prefabs.Values)
 			{
+				if (gameObject.TryGetComponent(out DoorVariant doorVariant))
+				{
+					switch (gameObject.name)
+					{
+						case "LCZ BreakableDoor":
+							objectList.Add(ObjectType.LczDoor, gameObject);
+							continue;
+						case "HCZ BreakableDoor":
+							objectList.Add(ObjectType.HczDoor, gameObject);
+							continue;
+						case "EZ BreakableDoor":
+							objectList.Add(ObjectType.EzDoor, gameObject);
+							continue;
+						default:
+							continue;
+					}
+				}
 				if (gameObject.TryGetComponent(out PrimitiveObjectToy _))
 				{
 					objectList.Add(ObjectType.Primitive, gameObject);
